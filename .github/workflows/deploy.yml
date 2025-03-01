@@ -33,4 +33,4 @@ jobs:
     - name: Execute command on VPS
       env:
         SSHPASS: ${{ secrets.SSH_PASSWORD }}
-      run: sshpass -e ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd website && npm install && node server.js &'
+      run: sshpass -e ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'cd website && lsof -i :3000 | grep node | awk '{print $2}' | xargs kill -9 && npm install && node server.js &'
