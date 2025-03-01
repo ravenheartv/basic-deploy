@@ -15,8 +15,13 @@ jobs:
 
     - name: Install sshpass
       run: sudo apt-get install -y sshpass
+
+    - name: Add remote host to known_hosts
+      run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
     - name: List files
       run: ls -la
+
     - name: Copy files via SCP
       env:
         SSHPASS: ${{ secrets.SSH_PASSWORD }}
